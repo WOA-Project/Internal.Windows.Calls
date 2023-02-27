@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
 using Internal.Windows.Calls.PhoneOm;
-using Windows.ApplicationModel.Contacts;
-using Windows.Globalization.PhoneNumberFormatting;
-using Windows.Foundation;
-
-using static Internal.Windows.Calls.PhoneOm.Exports;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Calls;
+using Windows.ApplicationModel.Contacts;
+using Windows.Foundation;
+using static Internal.Windows.Calls.PhoneOm.Exports;
 
 namespace Internal.Windows.Calls
 {
@@ -23,9 +16,9 @@ namespace Internal.Windows.Calls
 
         public static IAsyncOperation<CallManager> GetCallManagerAsync()
         {
-            async Task<CallManager> impl()
+            static async Task<CallManager> impl()
             {
-                CallManager result = new CallManager();
+                CallManager result = new();
                 return result;
             }
 
@@ -33,11 +26,14 @@ namespace Internal.Windows.Calls
         }
 
         private readonly IntPtr _PhoneListenerPointer;
-        private readonly List<Call> _Calls = new List<Call>();
+        private readonly List<Call> _Calls = new();
         private readonly PH_CHANGE_EVENT_NOTIFY_FUNCTION _Callback;
         private Call _ActiveCall;
 
-        internal ContactStore ContactStore { get; private set; }
+        internal ContactStore ContactStore
+        {
+            get; private set;
+        }
 
         public event TypedEventHandler<CallManager, Call> ActiveCallChanged;
         public event TypedEventHandler<CallManager, Call> CallAppeared;
@@ -59,7 +55,10 @@ namespace Internal.Windows.Calls
             }
         }
         public IEnumerable<Call> CurrentCalls => _Calls.ToList().AsReadOnly();
-        public CallCounts CallCounts { get; private set; }
+        public CallCounts CallCounts
+        {
+            get; private set;
+        }
 
         public PhoneAudioRoutingEndpoint AudioEndpoint
         {
@@ -134,7 +133,7 @@ namespace Internal.Windows.Calls
 
         private unsafe void UpdateState()
         {
-            List<Call> invalidCalls = new List<Call>();
+            List<Call> invalidCalls = new();
             bool currentCallsChanged = false;
             PhoneGetState(out PH_CALL_INFO[] callInfos, out uint count, out PH_PHONE_CALL_COUNTS callCounts);
             CallCounts = new CallCounts(callCounts);
@@ -152,7 +151,7 @@ namespace Internal.Windows.Calls
             }
             foreach (Call call in invalidCalls)
             {
-                _Calls.Remove(call);
+                _ = _Calls.Remove(call);
             }
             if (invalidCalls.Count > 0)
             {
@@ -163,7 +162,7 @@ namespace Internal.Windows.Calls
             {
                 if (!_Calls.Exists(x => x.ID == callInfo.CallID))
                 {
-                    Call call = new Call(this, callInfo);
+                    Call call = new(this, callInfo);
                     _Calls.Add(call);
                     CallAppeared?.Invoke(this, call);
                     currentCallsChanged = true;
@@ -180,7 +179,10 @@ namespace Internal.Windows.Calls
             }
         }
 
-        public Call GetCallByID(uint id) => CurrentCalls.FirstOrDefault(x => x.ID == id);
+        public Call GetCallByID(uint id)
+        {
+            return CurrentCalls.FirstOrDefault(x => x.ID == id);
+        }
 
         public bool IsAbleToCreateConference(Call call0, Call call1)
         {

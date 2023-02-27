@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace Internal.Windows.Calls
 {
@@ -13,6 +9,6 @@ namespace Internal.Windows.Calls
         ShowKeypadOnCall = 0x20,
         ShowAssistedDialUI = 0x80,
         CallForwarded = 0x200,
-        VoicemailCall  = 0x4000,
+        VoicemailCall = 0x4000,
     }
 }

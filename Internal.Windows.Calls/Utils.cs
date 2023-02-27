@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+using System;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Internal.Windows.Calls
 {
@@ -24,15 +19,15 @@ namespace Internal.Windows.Calls
 
         public static unsafe string ByteDump(void* ptr, int count, int split = 0)
         {
-            StringBuilder result = new StringBuilder();
+            StringBuilder result = new();
             byte* dumping = (byte*)ptr;
             for (int i0 = 0; i0 < count; i0++)
             {
-                result.Append(dumping[i0]);
-                result.Append(' ');
+                _ = result.Append(dumping[i0]);
+                _ = result.Append(' ');
                 if (split != 0 && split == i0)
                 {
-                    result.Append('|');
+                    _ = result.Append('|');
                 }
             }
             return result.ToString();
@@ -40,21 +35,15 @@ namespace Internal.Windows.Calls
 
         public static uint CallStateToOrder(this CallState state)
         {
-            switch(state)
+            return state switch
             {
-                case CallState.Incoming:
-                    return 0;
-                case CallState.Dialing:
-                    return 1;
-                case CallState.ActiveTalking:
-                    return 2;
-                case CallState.OnHold:
-                    return 3;
-                case CallState.Transferring:
-                    return 4;
-                default:
-                    return 5;
-            }
+                CallState.Incoming => 0,
+                CallState.Dialing => 1,
+                CallState.ActiveTalking => 2,
+                CallState.OnHold => 3,
+                CallState.Transferring => 4,
+                _ => 5,
+            };
         }
     }
 }

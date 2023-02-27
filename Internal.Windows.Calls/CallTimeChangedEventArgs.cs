@@ -1,12 +1,18 @@
-﻿using System;
+using System;
 
 namespace Internal.Windows.Calls
 {
     public sealed class CallTimeChangedEventArgs
     {
 
-        public DateTimeOffset? OldTime { get; }
-        public DateTimeOffset? NewTime { get; }
+        public DateTimeOffset? OldTime
+        {
+            get;
+        }
+        public DateTimeOffset? NewTime
+        {
+            get;
+        }
 
         internal CallTimeChangedEventArgs(DateTimeOffset? old, DateTimeOffset? @new)
         {

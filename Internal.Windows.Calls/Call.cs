@@ -3,19 +3,12 @@
 using Internal.Windows.Calls.PhoneOm;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Calls;
 using Windows.ApplicationModel.Contacts;
 using Windows.Foundation;
-using Windows.Foundation.Metadata;
 using Windows.Globalization.PhoneNumberFormatting;
 using Windows.System;
 
@@ -26,38 +19,14 @@ namespace Internal.Windows.Calls
     public sealed class Call
     {
         private readonly CallManager _CallManager;
-        private readonly List<Call> _CallsInConference = new List<Call>();
-        private Contact? _Contact;
-        private ContactPhone? _Phone;
-        private Contact? _ForwardContact;
-        private ContactPhone? _ForwardPhone;
+        private readonly List<Call> _CallsInConference = new();
         private DateTimeOffset? _StartTime;
         private DateTimeOffset? _EndTime;
         private DateTimeOffset? _LastFlashedTime;
         private DateTimeOffset? _ArrivalTime;
         private CallState _State;
-        private CallStateReason _StateReason;
-        private CallDirection _Direction;
         private uint _ID;
         private uint _ConferenceID;
-        private PhoneLine? _Line;
-        private CallFlags _field_BF0;
-        private CallUpgradeState _UpgradeState;
-        private AppInfo? _OwningApplication;
-        private CallAudioQuality _AudioQuality;
-        private CallAudioFlags _AudioFlags;
-        private CallVideoFlags _VideoFlags;
-        private CallVideoTransitionState _VideoTransitionState;
-        private bool _RemotePartyIsVideoCapable;
-        private CallVideoConferenceState _VideoConferenceState;
-        private CallInteractor _ActionByExternalDevice;
-        private bool _IsHandoverMerged;
-        private bool _IsRoaming;
-        private bool _IsBareCall;
-        private bool _UseCallWaiting;
-        private bool _SupportsHold;
-        private bool _IsDtmfWaitPending;
-        private AvailableActions _AvailableActions;
 
         [Obsolete]
         public event TypedEventHandler<Call, AvailableActions> AvailableActionsChanged;
@@ -71,23 +40,19 @@ namespace Internal.Windows.Calls
 
         public Contact? Contact
         {
-            get => _Contact;
-            private set => _Contact = value;
+            get; private set;
         }
         public ContactPhone? Phone
         {
-            get => _Phone;
-            private set => _Phone = value;
+            get; private set;
         }
         public Contact? ForwardContact
         {
-            get => _ForwardContact;
-            private set => _ForwardContact = value;
+            get; private set;
         }
         public ContactPhone? ForwardPhone
         {
-            get => _ForwardPhone;
-            private set => _ForwardPhone = value;
+            get; private set;
         }
         public DateTimeOffset? StartTime
         {
@@ -156,13 +121,11 @@ namespace Internal.Windows.Calls
         }
         public CallStateReason StateReason
         {
-            get => _StateReason;
-            private set => _StateReason = value;
+            get; private set;
         }
         public CallDirection Direction
         {
-            get => _Direction;
-            private set => _Direction = value;
+            get; private set;
         }
         public uint ID
         {
@@ -192,94 +155,76 @@ namespace Internal.Windows.Calls
         }
         public PhoneLine? Line
         {
-            get => _Line;
-            private set => _Line = value;
+            get; private set;
         }
         public CallFlags field_BF0
         {
-            get => _field_BF0;
-            private set => _field_BF0 = value;
+            get; private set;
         }
         public CallUpgradeState UpgradeState
         {
-            get => _UpgradeState;
-            private set => _UpgradeState = value;
+            get; private set;
         }
         public AppInfo? OwningApplication
         {
-            get => _OwningApplication;
-            private set => _OwningApplication = value;
+            get; private set;
         }
         public CallAudioQuality AudioQuality
         {
-            get => _AudioQuality;
-            private set => _AudioQuality = value;
+            get; private set;
         }
         public CallAudioFlags AudioFlags
         {
-            get => _AudioFlags;
-            private set => _AudioFlags = value;
+            get; private set;
         }
         public CallVideoFlags VideoFlags
         {
-            get => _VideoFlags;
-            private set => _VideoFlags = value;
+            get; private set;
         }
         public CallVideoTransitionState VideoTransitionState
         {
-            get => _VideoTransitionState;
-            private set => _VideoTransitionState = value;
+            get; private set;
         }
         public bool RemotePartyIsVideoCapable
         {
-            get => _RemotePartyIsVideoCapable;
-            private set => _RemotePartyIsVideoCapable = value;
+            get; private set;
         }
         public CallVideoConferenceState VideoConferenceState
         {
-            get => _VideoConferenceState;
-            private set => _VideoConferenceState = value;
+            get; private set;
         }
         public CallInteractor ActionByExternalDevice
         {
-            get => _ActionByExternalDevice;
-            private set => _ActionByExternalDevice = value;
+            get; private set;
         }
         public bool IsConference => _ConferenceID > 0U;
         public bool IsHandoverMerged
         {
-            get => _IsHandoverMerged;
-            private set => _IsHandoverMerged = value;
+            get; private set;
         }
         public bool IsRoaming
         {
-            get => _IsRoaming;
-            private set => _IsRoaming = value;
+            get; private set;
         }
         public bool IsBareCall
         {
-            get => _IsBareCall;
-            private set => _IsBareCall = value;
+            get; private set;
         }
         public bool UseCallWaiting
         {
-            get => _UseCallWaiting;
-            private set => _UseCallWaiting = value;
+            get; private set;
         }
         public bool SupportsHold
         {
-            get => _SupportsHold;
-            private set => _SupportsHold = value;
+            get; private set;
         }
         public bool IsDtmfWaitPending
         {
-            get => _IsDtmfWaitPending;
-            private set => _IsDtmfWaitPending = value;
+            get; private set;
         }
         public AvailableActions AvailableActions
         {
-            get => _AvailableActions;
-            private set => _AvailableActions = value;
+            get; private set;
         }
         public IEnumerable<Call> CallsInConference => _CallsInConference.ToList().AsReadOnly();
 
@@ -299,7 +244,7 @@ namespace Internal.Windows.Calls
             if (batch.Status == ContactBatchStatus.Success && batch.Contacts.Count > 0)
             {
                 contact = batch.Contacts.First();
-                PhoneNumberInfo internalNumber = new PhoneNumberInfo(number);
+                PhoneNumberInfo internalNumber = new(number);
                 phone = contact.Phones.First(x => internalNumber.CheckNumberMatch(new PhoneNumberInfo(x.Number)) != PhoneNumberMatchResult.NoMatch);
             }
             else
@@ -321,21 +266,14 @@ namespace Internal.Windows.Calls
         private async Task<Contact?> FindInfoByName(string name)
         {
             ContactBatch batch = await _CallManager.ContactStore.GetContactReader(new ContactQueryOptions(name)).ReadBatchAsync();
-            if (batch.Status == ContactBatchStatus.Success && batch.Contacts.Count > 0)
-            {
-                return batch.Contacts.First();
-            }
-            else if (!string.IsNullOrEmpty(name))
-            {
-                return new Contact()
-                {
-                    DisplayNameOverride = name
-                };
-            }
-            else
-            {
-                return null;
-            }
+            return batch.Status == ContactBatchStatus.Success && batch.Contacts.Count > 0
+                ? batch.Contacts.First()
+                : !string.IsNullOrEmpty(name)
+                    ? new Contact()
+                    {
+                        DisplayNameOverride = name
+                    }
+                    : null;
         }
 
         private void UpdateAvailableActions(PH_AVAILABLE_ACTIONS actions)
@@ -350,7 +288,7 @@ namespace Internal.Windows.Calls
             AudioQuality = callInfo.AudioQuality;
             try
             {
-                StartTime = DateTimeOffset.FromFileTime((((long)callInfo.CallStartTime.dwHighDateTime) << 32) | ((uint)callInfo.CallStartTime.dwLowDateTime));
+                StartTime = DateTimeOffset.FromFileTime((((long)callInfo.CallStartTime.dwHighDateTime) << 32) | callInfo.CallStartTime.dwLowDateTime);
             }
             catch
             {
@@ -358,7 +296,7 @@ namespace Internal.Windows.Calls
             }
             try
             {
-                EndTime = DateTimeOffset.FromFileTime((((long)callInfo.CallEndTime.dwHighDateTime) << 32) | ((uint)callInfo.CallEndTime.dwLowDateTime));
+                EndTime = DateTimeOffset.FromFileTime((((long)callInfo.CallEndTime.dwHighDateTime) << 32) | callInfo.CallEndTime.dwLowDateTime);
             }
             catch
             {
@@ -366,7 +304,7 @@ namespace Internal.Windows.Calls
             }
             try
             {
-                LastFlashedTime = DateTimeOffset.FromFileTime((((long)callInfo.LastFlashedTime.dwHighDateTime) << 32) | ((uint)callInfo.LastFlashedTime.dwLowDateTime));
+                LastFlashedTime = DateTimeOffset.FromFileTime((((long)callInfo.LastFlashedTime.dwHighDateTime) << 32) | callInfo.LastFlashedTime.dwLowDateTime);
             }
             catch
             {
@@ -374,7 +312,7 @@ namespace Internal.Windows.Calls
             }
             try
             {
-                CallArrivalTime = DateTimeOffset.FromFileTime((((long)callInfo.CallArrivalTime.dwHighDateTime) << 32) | ((uint)callInfo.CallArrivalTime.dwLowDateTime));
+                CallArrivalTime = DateTimeOffset.FromFileTime((((long)callInfo.CallArrivalTime.dwHighDateTime) << 32) | callInfo.CallArrivalTime.dwLowDateTime);
             }
             catch
             {
@@ -407,8 +345,15 @@ namespace Internal.Windows.Calls
             if (IsConference)
             {
                 _CallsInConference.Clear();
-                PhoneGetCallsInConference(ConferenceID, out PH_CALL_INFO[] calls, out uint count);
-                _CallsInConference.AddRange(calls.Select(x => _CallManager.GetCallByID(x.CallID)));
+                try
+                {
+                    PhoneGetCallsInConference(ConferenceID, out PH_CALL_INFO[] calls, out uint count);
+                    _CallsInConference.AddRange(calls.Select(x => _CallManager.GetCallByID(x.CallID)));
+                }
+                catch
+                {
+
+                }
             }
             else
             {
@@ -457,16 +402,34 @@ namespace Internal.Windows.Calls
             await UpdateState(callInfo);
         }
 
-        public void AcceptIncomingEx() => PhoneAcceptIncomingEx(ID);
+        public void AcceptIncomingEx()
+        {
+            PhoneAcceptIncomingEx(ID);
+        }
 
-        public void AcceptVideo() => PhoneAcceptVideo(ID);
+        public void AcceptVideo()
+        {
+            PhoneAcceptVideo(ID);
+        }
 
-        public void DropVideo() => PhoneDropVideo(ID);
+        public void DropVideo()
+        {
+            PhoneDropVideo(ID);
+        }
 
-        public void End() => PhoneEnd(ID);
+        public void End()
+        {
+            PhoneEnd(ID);
+        }
 
-        public void RejectIncoming() => PhoneRejectIncoming(ID);
+        public void RejectIncoming()
+        {
+            PhoneRejectIncoming(ID);
+        }
 
-        public void SetHold(bool state) => PhoneSetHold(ID, state);
+        public void SetHold(bool state)
+        {
+            PhoneSetHold(ID, state);
+        }
     }
 }
