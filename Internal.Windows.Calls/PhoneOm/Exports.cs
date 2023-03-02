@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Internal.Windows.Calls.PhoneOm
 {
-    internal static unsafe partial class Exports
+    internal static partial class Exports
     {
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void CreatePhoneRpcClient();

@@ -11,7 +11,7 @@ namespace Internal.Windows.Calls.PhoneOm
     }
 
     [StructLayout(LayoutKind.Explicit, Size = SIZE, CharSet = CharSet.Unicode)]
-    internal unsafe struct PH_CALL_INFO
+    internal struct PH_CALL_INFO
     {
         public const int SIZE = 0x19c4;
 
