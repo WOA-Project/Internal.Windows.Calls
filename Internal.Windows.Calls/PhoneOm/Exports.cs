@@ -44,8 +44,10 @@ namespace Internal.Windows.Calls.PhoneOm
         public static extern void PhoneAcceptUpgradingRealTimeTextCall();
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneAcceptVideo(in uint callID);
+        
         //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         //public static extern void PhoneActivateVisualVoicemail();
+        
         /// <summary>
         /// Allows the caller to specify a callback function ptr that
         /// will get called when the state of phone data changes or
@@ -63,8 +65,11 @@ namespace Internal.Windows.Calls.PhoneOm
         public static extern void PhoneAddVideo();
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneCallCapabilityAccessCheck();
-        [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
-        public static extern void PhoneCallVoicemail();
+
+        //Gustave - These exports were removed from PhoneOm.dll during Gallium Semester
+        //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
+        //public static extern void PhoneCallVoicemail();
+
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneCancelNonSeamlessUpgrade();
         /// <summary>
@@ -78,6 +83,7 @@ namespace Internal.Windows.Calls.PhoneOm
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneConfirmNonSeamlessUpgrade();
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
+        
         //public static extern void PhoneDeactivateVisualVoicemail();
         //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneDial();
@@ -191,8 +197,10 @@ namespace Internal.Windows.Calls.PhoneOm
         public static extern void PhoneGetProviderLineLockInfo();
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneGetProviderLineServiceInfo(in Guid id, out PH_PROVIDER_LINE_SERVICE_INFO lineServiceInfo);
+        
         //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         //public static extern void PhoneGetProviderLineVvmConnectivityState();
+        
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneGetRecordingApplications();
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
@@ -224,12 +232,16 @@ namespace Internal.Windows.Calls.PhoneOm
         public static extern void PhoneGetVideoCapabilities();
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneGetVideoCapabilitySharingSettings();
+        
         //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         //public static extern void PhoneGetVisualVoicemailAccessor();
         //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         //public static extern void PhoneGetVisualVoicemailBranding();
-        [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
-        public static extern void PhoneGetVoicemailNumberAndOverrideInfo();
+
+        //Gustave - These exports were removed from PhoneOm.dll during Gallium Semester
+        //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
+        //public static extern void PhoneGetVoicemailNumberAndOverrideInfo();
+
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneGetWiredHeadsetState(out bool state);
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
@@ -269,11 +281,11 @@ namespace Internal.Windows.Calls.PhoneOm
         public static extern void PhoneIsVideoCallingSwitchActionable();
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneIsVoiceRoamingRestrictionActive();
+        
         //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         //public static extern void PhoneIsVvmSetupComplete();
 
         //Gustave - These exports were removed from PhoneOm.dll during Nickel Semester
-
         //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         //public static extern void PhoneLineAddCapabilities();
         //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
@@ -283,18 +295,23 @@ namespace Internal.Windows.Calls.PhoneOm
         public static extern void PhoneMapIddPrefixToPlus();
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneMapPlusToDialingPrefix();
+
         //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         //public static extern void PhoneMarkDataAffinityNotificationSeen();
         //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         //public static extern void PhoneMarkVvmSetupComplete();
+
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneModifyCallForwarding();
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneModifyCallerIdSetting();
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneModifyVideoCallingSetting();
-        [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
-        public static extern void PhoneModifyVoicemailAddress();
+
+        //Gustave - These exports were removed from PhoneOm.dll during Gallium Semester
+        //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
+        //public static extern void PhoneModifyVoicemailAddress();
+
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneNotificationHelper_CreateInstance();
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
@@ -311,7 +328,6 @@ namespace Internal.Windows.Calls.PhoneOm
         public static extern void PhoneRefreshVideoCallingSetting();
 
         //Simone - This export was removed from PhoneOm.dll in 22000
-
         //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         //public static extern void PhoneReinitiateCallerIdLookup(ref uint callID);
 
@@ -327,8 +343,10 @@ namespace Internal.Windows.Calls.PhoneOm
         /// <param name="phoneListener">The HPHONELISTENER returned by PhoneAddListener in phoneListener.</param>
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneRemoveListener(IntPtr phoneListener);
+
         //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         //public static extern void PhoneSaveVvmPassword();
+
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneSendDTMF();
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
@@ -385,10 +403,12 @@ namespace Internal.Windows.Calls.PhoneOm
         public static extern void PhoneSpamFilteringEnabled();
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneStartRecording();
+
         //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         //public static extern void PhoneStartVisualVoicemailSync();
         //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         //public static extern void PhoneSupportsLocalVvmConfig();
+
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneSwap();
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
@@ -398,8 +418,11 @@ namespace Internal.Windows.Calls.PhoneOm
         /// </summary>
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void PhoneWaitForAPIReady(int wait);
-        [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
-        public static extern void RetrieveSystemNotificationCallbackPayload();
+
+        //Gustave - These exports were removed from PhoneOm.dll during Gallium Semester
+        //[DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
+        //public static extern void RetrieveSystemNotificationCallbackPayload();
+
         [DllImport("PhoneOm.dll", ExactSpelling = true, PreserveSig = false)]
         public static extern void ShouldPlayCallWaitingTone();
     }
